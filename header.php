@@ -10,7 +10,7 @@
             <label for="search-input" class="visually-hidden">Zoek</label>
             <div class="search-input-wrap">
                 <span class="search-icon">&#128269;</span>
-                <input id="search-input" type="search" name="q" placeholder="Value" class="search-input">
+                <input id="search-input" type="search" name="q" placeholder="zoeken" class="search-input">
             </div>
         </form>
     </div>

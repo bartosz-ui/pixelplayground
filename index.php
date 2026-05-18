@@ -9,6 +9,7 @@
     <?php include 'header.php'; ?>
 </head>
 <body>
+    <?php include 'header.php'; ?>
     
 </body>
 </html>
