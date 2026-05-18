@@ -7,11 +7,15 @@
     <title>pixelplayground</title>
     <link rel="stylesheet" href="style/style.css">
 
+
+
+    <script src="script/script.js" defer></script>
+    <?php include 'header.php'; ?>
+
 </head>
 <body>
-    <?php include 'header.php'; ?>
+   
     
     
 </body>
 </html>
-
