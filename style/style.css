@@ -31,7 +31,7 @@ img {
     gap: 24px;
     padding: 18px 28px;
     background: linear-gradient(180deg, #243970 0%, #1d2d5a 100%);
-    border: 1px solid #ff8a3d;
+    border: 5px solid #C44569;
     border-radius: 18px;
     position: sticky;
     top: 12px;
@@ -118,7 +118,19 @@ img {
     gap: 16px;
     margin-left: auto;
 }
+.site-footer {
+    background: linear-gradient(180deg, #243970 0%, #1d2d5a 100%);
+    border: 5px solid #C44569;
+    border-radius: 18px;
+    padding: 24px;
+    margin: 20px 12px;
+    text-align: center;
+    color: #f6f8ff;
+}
 
+.site-footer p {
+    margin: 0;
+}
 .btn {
     display: inline-flex;
     align-items: center;
