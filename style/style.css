@@ -45,7 +45,7 @@ img {
 }
 
 .brand-logo {
-    height: 67px;
+    height: 78px;
 }
 
 .header__search {
@@ -96,8 +96,10 @@ img {
 .header__nav {
     display: flex;
     align-items: center;
-    gap: 24px;
+    justify-content: space-between;
     white-space: nowrap;
+    width: 340px;
+    margin: 0 auto;
 }
 
 .header__nav a {
@@ -116,7 +118,6 @@ img {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-left: auto;
 }
 .site-footer {
     background: linear-gradient(180deg, #243970 0%, #1d2d5a 100%);
