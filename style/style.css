@@ -178,38 +178,3 @@ img {
     border: 0;
 }
 
-@media (max-width: 900px) {
-    .site-header {
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .header__nav {
-        flex: 1 1 100%;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 640px) {
-    .site-header {
-        padding: 16px;
-    }
-
-    .header__search {
-        order: 3;
-        width: 100%;
-    }
-
-    .header__nav {
-        order: 2;
-        gap: 16px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .header__actions {
-        order: 4;
-        width: 100%;
-        justify-content: space-between;
-    }
-}
