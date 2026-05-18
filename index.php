@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    
+    <?php include 'header.php'; ?>
 </body>
 </html>
-
