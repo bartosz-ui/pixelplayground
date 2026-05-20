@@ -1,12 +1,12 @@
 <header class="site-header">
-    <div class="header__brand">
+    <div>
         <a href="index.php" class="brand-link">
             <img src="images/logo%20pixelplayground.webp" alt="Retro Games" class="brand-logo">
         </a>
     </div>
 
-    <div class="header__search">
-        <form action="#" class="search-form">
+    <div>
+        <form>
             <label for="search-input" class="visually-hidden">Zoek</label>
             <div class="search-input-wrap">
                 <span class="search-icon">&#128269;</span>

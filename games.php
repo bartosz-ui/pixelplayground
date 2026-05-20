@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
+    <title>pixelplayground</title>
+
+    <link rel="stylesheet" href="style/style.css">
+    <script src="script/script.js" defer></script>
 </head>
+
 <body>
-     <section class="featured-games">
-            <h2 class="section-title">Uitgelichte Games</h2>
-            <div class="game-grid">
-                <div class="game-card">
-                    <img src="images/game1.webp" alt="Game 1" class="game-card__image">
-                    <h3 class="game-card__title">vier op een rij</h3>
-                    <p class="game-card__description">Een platformer vol avontuur en pixel-perfect actie.</p>
-                    <a href="#" class="btn btn--secondary">Speel nu</a>
-                </div>
-                <div class="game-card">
-                    <img src="images/game2.webp" alt="Game 2" class="game-card__image">
-                    <h3 class="game-card__title">wordle</h3>
-                    <p class="game-card__description">Raad het woord in zo min mogelijk pogingen.</p>
-                    <a href="#" class="btn btn--secondary">Speel nu</a>
-                </div>
-            </div>
+
+    <?php include 'header.php'; ?>
+
+    <main>
+
+        <section class="featured-games">
+            <h2 class="section-title">Onze games</h2>
+            <section class="games-grid">
+
+                <article class="game-card">
+                    <img src="images\connect.jpg" alt="Connect 4">
+
+                    <div class="game-card__content">
+                        <h3>Vier op een rij</h3>
+
+                        <p>
+                            Zet vier van dezelfde kleur op een rij en win!
+                        </p>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <img src="images\wordle.png" alt="Wordle">
+
+                    <div class="game-card__content">
+                        <h3>Wordle</h3>
+
+                        <p>
+                            Raad het woord in zo min mogelijk pogingen.
+                        </p>
+                    </div>
+                </article>
+                <article class="game-card">
+                    <img src="images\boterkaasei.png" alt="Boter kaas en eieren">
+
+                    <div class="game-card__content">
+                        <h3>Boter, Kaas en Eieren</h3>
+
+                        <p>
+                            Speel de klassieke tic-tac-toe tegen je vrienden!
+                        </p>
+
+                        <span class="coming-soon">Coming Soon</span>
+                    </div>
+                </article>
+
+                <article class="game-card">
+                    <img src="images\galgje.jpg" alt="Galgje">
+
+                    <div class="game-card__content">
+                        <h3>Galgje</h3>
+
+                        <p>
+                            Raad het verborgen woord voordat het te laat is.
+                        </p>
+
+                        <span class="coming-soon">Coming Soon</span>
+                    </div>
+                </article>
+            </section>
+
         </section>
-    
+
+    </main>
+    <footer class="site-footer">
+        <p>
+            &copy; <?php echo date("Y"); ?> Pixel Playground.
+            Alle rechten voorbehouden.
+        </p>
+    </footer>
+
 </body>
+
 </html>
