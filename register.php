@@ -27,7 +27,7 @@
                 <button type="submit" class="btn btn--primary">Registreer</button>
             </form>
 
-            <p>Heb je al een account? <button id="open-login" class="btn btn--primary">Inloggen</button></p>
+            <p>Heb je al een account? <button id="open-login" class="inloggen">Inloggen</button></p>
         </article>
     </main>
 
