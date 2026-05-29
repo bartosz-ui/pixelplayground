@@ -229,6 +229,43 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+
+/* Login form layout */
+.login-form {
+    max-width: 420px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    background: rgba(26, 38, 102, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.login-form h2 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.login-form label {
+    font-weight: 600;
+}
+
+.login-form input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.login-form .btn {
+    align-self: center;
+    padding: 10px 20px;
+}
+
+
 /* RESPONSIVE */
 
 @media (max-width: 900px) {

@@ -22,7 +22,7 @@
     </nav>
 
     <div class="header__actions">
-        <a href="register.php" class="btn btn--primary">register</a>
+        <a href="register.php" class="btn btn--primary">registreren</a>
         <a href="profile.php" class="profile-badge" aria-label="Profiel">F</a>
     </div>
 </header>
