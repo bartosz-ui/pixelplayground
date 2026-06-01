@@ -411,3 +411,44 @@ body {
     }
 }
 
+        .leaderboard {
+            width: min(400px, 100%);
+            max-width: 100%;
+            margin: 50px auto;
+            background: #1e1e1e;
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard th,
+        .leaderboard td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .leaderboard tr {
+            border-bottom: 1px solid #444;
+        }
+
+        .leaderboard tr:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard .rank {
+            font-weight: bold;
+            color: gold;
+        }
