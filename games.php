@@ -21,15 +21,17 @@
             <section class="games-grid">
 
                 <article class="game-card">
-                    <img src="images\connect.jpg" alt="Connect 4">
+                    <a href="connect4.php" style="text-decoration: none; color: inherit;">
+                        <img src="images\connect.jpg" alt="Connect 4">
 
-                    <div class="game-card__content">
-                        <h3>Vier op een rij</h3>
+                        <div class="game-card__content">
+                            <h3>Vier op een rij</h3>
 
-                        <p>
-                            Zet vier van dezelfde kleur op een rij en win!
-                        </p>
-                    </div>
+                            <p>
+                                Zet vier van dezelfde kleur op een rij en win!
+                            </p>
+                        </div>
+                    </a>
                 </article>
 
                 <article class="game-card">
