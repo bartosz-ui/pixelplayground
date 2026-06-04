@@ -89,7 +89,7 @@
                     <h3>Galgje</h3>
 
                     <p>
-                        Raad het woord voordat de galg compleet is.
+                        Raad het woord voordat de galg compleet is. 
                     </p>
 
                     <span class="coming-soon">
