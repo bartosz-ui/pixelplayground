@@ -36,14 +36,15 @@
 
                 <article class="game-card">
                     <img src="images\wordle.png" alt="Wordle">
+                    <a href="wordle.php" style="text-decoration: none; color: inherit;">
+                        <div class="game-card__content">
+                            <h3>Wordle</h3>
 
-                    <div class="game-card__content">
-                        <h3>Wordle</h3>
-
-                        <p>
-                            Raad het woord in zo min mogelijk pogingen.
-                        </p>
-                    </div>
+                            <p>
+                                Raad het woord in zo min mogelijk pogingen.
+                            </p>
+                        </div>
+                    </a>
                 </article>
                 <article class="game-card">
                     <img src="images\boterkaasei.png" alt="Boter kaas en eieren">
