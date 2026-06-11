@@ -24,32 +24,32 @@
                     <a href="connect4.php" style="text-decoration: none; color: inherit;">
                         <img src="images\connect.jpg" alt="Connect 4">
 
-                        <div class="game-card__content">
+                        <article class="game-card__content">
                             <h3>Vier op een rij</h3>
 
                             <p>
                                 Zet vier van dezelfde kleur op een rij en win!
                             </p>
-                        </div>
+                        </article>
                     </a>
                 </article>
 
                 <article class="game-card">
                     <img src="images\wordle.png" alt="Wordle">
                     <a href="wordle.php" style="text-decoration: none; color: inherit;">
-                        <div class="game-card__content">
+                        <article class="game-card__content">
                             <h3>Wordle</h3>
 
                             <p>
                                 Raad het woord in zo min mogelijk pogingen.
                             </p>
-                        </div>
+                        </article>
                     </a>
                 </article>
                 <article class="game-card">
                     <img src="images\boterkaasei.png" alt="Boter kaas en eieren">
 
-                    <div class="game-card__content">
+                    <article class="game-card__content">
                         <h3>Boter, Kaas en Eieren</h3>
 
                         <p>
@@ -57,13 +57,13 @@
                         </p>
 
                         <span class="coming-soon">Coming Soon</span>
-                    </div>
+                    </article>
                 </article>
 
                 <article class="game-card">
                     <img src="images\galgje.jpg" alt="Galgje">
 
-                    <div class="game-card__content">
+                    <article class="game-card__content">
                         <h3>Galgje</h3>
 
                         <p>
@@ -71,7 +71,7 @@
                         </p>
 
                         <span class="coming-soon">Coming Soon</span>
-                    </div>
+                    </article>
                 </article>
             </section>
 

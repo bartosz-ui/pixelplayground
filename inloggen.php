@@ -14,16 +14,16 @@
 
     <?php include 'header.php'; ?>
 
-<form action="inloggen.php" method="post" class="login-form">
-    <h2>Inloggen</h2>
+    <form action="inloggen.php" method="post" class="login-form">
+        <h2>Inloggen</h2>
 
-    <label for="username">Gebruikersnaam:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Wachtwoord:</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit" class="btn btn--primary">Inloggen</button>
-    <p>Heb je nog geen account? <a href="register.php">Registreer hier</a></p>
-</form>
+        <label for="username">Gebruikersnaam:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Wachtwoord:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="btn btn--primary">Inloggen</button>
+        <p>Heb je nog geen account? <a href="register.php">Registreer hier</a></p>
+    </form>
 
 
     <footer class="site-footer">

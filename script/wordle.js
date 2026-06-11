@@ -31,10 +31,10 @@ class WordleGame {
         const board = document.getElementById('gameBoard');
         board.innerHTML = '';
         for (let r = 0; r < this.ROWS; r++) {
-            const row = document.createElement('div');
+            const row = document.createElement('article');
             row.className = 'guess-row';
             for (let c = 0; c < this.COLS; c++) {
-                const cell = document.createElement('div');
+                const cell = document.createElement('article');
                 cell.className = 'guess-cell';
                 row.appendChild(cell);
             }
@@ -46,7 +46,7 @@ class WordleGame {
         const kb = document.getElementById('keyboard');
         kb.innerHTML = '';
         this.keyboardRows.forEach(row => {
-            const rowEl = document.createElement('div');
+            const rowEl = document.createElement('article');
             rowEl.className = 'kb-row';
             for (const ch of row) {
                 const key = document.createElement('button');
@@ -57,7 +57,7 @@ class WordleGame {
             }
             kb.appendChild(rowEl);
         });
-        const actionRow = document.createElement('div');
+        const actionRow = document.createElement('article');
         actionRow.className = 'kb-row';
         const enter = document.createElement('button');
         enter.className = 'kb-key wide';
