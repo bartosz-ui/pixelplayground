@@ -99,12 +99,14 @@ img {
 .header__nav a:focus-visible {
     color: var(--text-primary);
 }
+
 /* Header Actions (Login/Profile) */
 .header__actions {
     display: flex;
     align-items: center;
     gap: 16px;
 }
+
 /* Button Styles */
 .btn {
     display: inline-flex;
@@ -118,11 +120,13 @@ img {
     color: #fff;
     background: var(--accent);
 }
+
 /* register/login button */
 .btn--primary:hover,
 .btn--primary:focus-visible {
     background: var(--accent-hover);
 }
+
 /* Profile Badge */
 .profile-badge {
     display: inline-flex;
@@ -136,6 +140,7 @@ img {
     text-decoration: none;
     font-weight: 700;
 }
+
 /* Visually Hidden (for accessibility) */
 .visually-hidden {
     position: absolute;
@@ -148,6 +153,7 @@ img {
     white-space: nowrap;
     border: 0;
 }
+
 /* Footer Styles */
 .site-footer {
     width: 100%;
@@ -159,6 +165,7 @@ img {
     color: #f6f8ff;
     margin-top: auto;
 }
+
 /* body styles */
 body {
     font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -180,6 +187,7 @@ body {
     padding: 50px 40px;
     overflow-y: auto;
 }
+
 /*game grid styles*/
 .games-grid {
     display: grid;
@@ -217,6 +225,7 @@ body {
     font-size: 28px;
     margin-bottom: 12px;
 }
+
 /* Coming Soon Badge */
 .coming-soon {
     display: inline-block;
@@ -240,7 +249,7 @@ body {
     padding: 20px;
     background: rgba(26, 38, 102, 0.6);
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .login-form h2 {
@@ -251,6 +260,7 @@ body {
 .login-form label {
     font-weight: 600;
 }
+
 .inloggen {
     background: transparent;
     border: none;
@@ -258,10 +268,11 @@ body {
     font-weight: 600;
     cursor: pointer;
 }
+
 .login-form input {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     background: transparent;
     color: var(--text-primary);
 }
@@ -284,10 +295,12 @@ body {
     transition: opacity 180ms ease, visibility 180ms ease;
     z-index: 9999;
 }
+
 .modal-overlay.active {
     visibility: visible;
     opacity: 1;
 }
+
 .modal {
     position: relative;
     width: 100%;
@@ -295,9 +308,10 @@ body {
     margin: 0 20px;
     padding: 22px;
     border-radius: 12px;
-    background: linear-gradient(180deg, rgba(26,38,102,0.95), rgba(20,33,80,0.95));
-    box-shadow: 0 20px 40px rgba(4,8,30,0.6);
+    background: linear-gradient(180deg, rgba(26, 38, 102, 0.95), rgba(20, 33, 80, 0.95));
+    box-shadow: 0 20px 40px rgba(4, 8, 30, 0.6);
 }
+
 .modal-close {
     position: absolute;
     top: 8px;
@@ -324,7 +338,7 @@ body {
     padding: 20px;
     background: rgba(26, 38, 102, 0.6);
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .register-form h2 {
@@ -339,7 +353,7 @@ body {
 .register-form input {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     background: transparent;
     color: var(--text-primary);
 }
@@ -351,15 +365,15 @@ body {
 
 /* Leaderboard styles */
 .leaderboard {
-    width: min(400px, 100%);
+    width: min(90%, 1000px);
     margin: 50px auto;
     background: #1e1e1e;
     color: white;
     border-radius: 12px;
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: lexend, sans-serif;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    overflow-x: auto;
+
 }
 
 .leaderboard h2 {
@@ -374,21 +388,36 @@ body {
 
 .leaderboard th,
 .leaderboard td {
-    padding: 12px;
+    padding: 8px;
     text-align: left;
 }
 
 .leaderboard tr {
     border-bottom: 1px solid #444;
 }
-
-.leaderboard tr:last-child {
-    border-bottom: none;
+.rank-1 {
+    color: #FFD700; 
+    font-weight: bold;
 }
 
-.leaderboard .rank {
+.rank-2 {
+    color: #C0C0C0; 
     font-weight: bold;
-    color: gold;
+}
+
+.rank-3 {
+    color: #CD7F32; 
+    font-weight: bold;
+}
+
+.rank-4 {
+    color: #4CAF50; 
+    font-weight: bold;
+}
+
+.rank-5 {
+    color: #2196F3;
+    font-weight: bold;
 }
 
 
@@ -493,6 +522,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -691,4 +721,3 @@ body {
         font-size: 14px;
     }
 }
-

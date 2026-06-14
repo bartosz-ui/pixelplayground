@@ -22,6 +22,9 @@
                 <select id="difficulty" class="btn">
                     <option value="normal">Normaal (standaard lijst)</option>
                 </select>
+                <button class="btn" id="saveWordleBtn">💾 Opslaan</button>
+                <button class="btn" id="loadWordleBtn">📂 Laden</button>
+                <button class="btn" id="clearWordleBtn">🗑️ Verwijderen</button>
             </section>
 
             <section class="game-status" id="gameStatus" style="display:none;">
@@ -37,16 +40,13 @@
             </section>
 
             <section class="game-info">
-                <article class="player-info">
-                    <h3>Statistieken</h3>
-                    <p id="statsText">Geen spellen gespeeld</p>
-                </article>
             </section>
         </section>
     </main>
 
     <?php include 'footer.php'; ?>
 
+    <script src="script/badges.js"></script>
     <script src="script/wordle.js"></script>
 
 </body>

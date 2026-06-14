@@ -22,6 +22,9 @@
             <button class="btn btn--primary" onclick="startNewGame('pve')">
                 🤖 Tegen AI spelen
             </button>
+            <button class="btn" id="saveGameBtn">💾 Opslaan</button>
+            <button class="btn" id="loadGameBtn">📂 Laden</button>
+            <button class="btn" id="clearSaveBtn">🗑️ Verwijderen</button>
         </section>
 
         <section class="game-status" id="gameStatus" style="display: none;">
@@ -48,7 +51,7 @@
 
 <?php include 'footer.php'; ?>
 
+<script src="script/badges.js"></script>
 <script src="script/connect4.js"></script>
-
 </body>
 </html>

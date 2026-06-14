@@ -312,6 +312,43 @@ class Connect4Game {
         this.winner = null;
         this.render();
     }
+
+    // Save/load game state to localStorage
+    saveState() {
+        const state = {
+            board: this.board,
+            currentPlayer: this.currentPlayer,
+            gameMode: this.gameMode,
+            gameOver: this.gameOver,
+            winner: this.winner,
+            player1Wins: this.player1Wins,
+            player2Wins: this.player2Wins
+        };
+        localStorage.setItem('connect4_saved_game', JSON.stringify(state));
+    }
+
+    loadState() {
+        const raw = localStorage.getItem('connect4_saved_game');
+        if (!raw) return false;
+        try {
+            const s = JSON.parse(raw);
+            this.board = s.board;
+            this.currentPlayer = s.currentPlayer;
+            this.gameMode = s.gameMode;
+            this.gameOver = s.gameOver;
+            this.winner = s.winner;
+            this.player1Wins = s.player1Wins || 0;
+            this.player2Wins = s.player2Wins || 0;
+            this.render();
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    clearSavedState() {
+        localStorage.removeItem('connect4_saved_game');
+    }
 }
 
 // Global game instance
@@ -326,6 +363,8 @@ function playerMove(col) {
 
     if (game.dropPiece(col)) {
         game.render();
+        // Autosave after each move
+        try { game.saveState(); } catch (e) {}
 
         // AI move if playing against AI
         if (game.gameMode === 'pve' && game.currentPlayer === 2 && !game.gameOver) {
@@ -333,7 +372,16 @@ function playerMove(col) {
                 const aiCol = game.getAIMove();
                 game.dropPiece(aiCol);
                 game.render();
+                try { game.saveState(); } catch (e) {}
             }, 500);
+        }
+
+        // Award badge if game over
+        if (game.gameOver && game.winner) {
+            try {
+                const name = getOrAskPlayerName('connect4');
+                if (typeof awardAchievement === 'function') awardAchievement(name, 'connect4_first_win');
+            } catch (e) {}
         }
     }
 }
@@ -344,8 +392,35 @@ function resetGame() {
     }
 }
 
+// Helper functions for UI buttons
+function saveConnect4() {
+    if (game) { game.saveState(); alert('Spel opgeslagen.'); }
+    else alert('Geen actief spel om op te slaan. Start eerst een spel.');
+}
+
+function loadConnect4() {
+    if (!game) game = new Connect4Game();
+    const ok = game.loadState();
+    if (ok) { alert('Opgeslagen spel geladen.'); }
+    else alert('Geen opgeslagen spel gevonden.');
+}
+
+function clearConnect4Save() {
+    if (game) game.clearSavedState();
+    else localStorage.removeItem('connect4_saved_game');
+    alert('Opgeslagen spel verwijderd.');
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Set up button event handlers
+    const saveBtn = document.getElementById('saveGameBtn');
+    const loadBtn = document.getElementById('loadGameBtn');
+    const clearBtn = document.getElementById('clearSaveBtn');
+    if (saveBtn) saveBtn.onclick = () => saveConnect4();
+    if (loadBtn) loadBtn.onclick = () => loadConnect4();
+    if (clearBtn) clearBtn.onclick = () => { clearConnect4Save(); alert('Opslag verwijderd.'); };
+    
     // Show game controls if no game started
     const gameStatus = document.getElementById('gameStatus');
     if (gameStatus) {

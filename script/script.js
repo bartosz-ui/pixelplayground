@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
     });
 
-    // click outside to close
+
     modal?.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
 
-    // esc to close
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });

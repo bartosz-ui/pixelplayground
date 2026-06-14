@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mijn Profiel - Pixel Playground</title>
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/badges.css">
 </head>
 
 <body>
@@ -98,6 +99,9 @@
                         <p class="stat-label">Voltooide Achievements</p>
                     </section>
                 </section>
+
+                <h2 style="margin-top:30px;text-align:center;color:var(--text-primary);">Badges</h2>
+                <div class="badges-container" id="profileBadges"></div>
             </article>
 
             <!-- Instellingen Tab -->
@@ -139,7 +143,16 @@
 
     <?php include 'footer.php'; ?>
 
+    <script src="script/badges.js"></script>
     <script src="script/profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=>{
+            try { 
+                const name = getOrAskPlayerName('profile');
+                renderBadges('#profileBadges', name);
+            } catch(e) {}
+        });
+    </script>
 
 </body>
 

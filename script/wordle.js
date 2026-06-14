@@ -2,22 +2,32 @@ class WordleGame {
     constructor() {
         this.ROWS = 6;
         this.COLS = 5;
-        this.words = [
-            'APPLE','BRAVE','CRANE','SLATE','CRAZY','PLANT','GHOST','LIGHT','NURSE','TABLE','HOUSE','WATER','GREEN','BREAD','MONEY'
-        ];
+        this.words = ['APPLE','BRAVE','CRANE','SLATE','CRAZY','PLANT','GHOST','LIGHT','NURSE','TABLE','HOUSE','WATER','GREEN','BREAD','MONEY'];
         this.keyboardRows = ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'];
+        this.playerName = this.getPlayerName();
         this.resetStats();
         this.init();
     }
 
+    getPlayerName() {
+        let name = localStorage.getItem('wordle_player_name');
+        if (!name) {
+            name = prompt('Voer je naam in voor de leaderboard:') || 'Anoniem';
+            localStorage.setItem('wordle_player_name', name);
+        }
+        return name;
+    }
+
     resetStats() {
-        const raw = localStorage.getItem('wordle_stats');
-        this.stats = raw ? JSON.parse(raw) : {played:0,win:0};
+        const storageKey = `wordle_stats_${this.playerName}`;
+        const raw = localStorage.getItem(storageKey);
+        this.stats = raw ? JSON.parse(raw) : {played:0,win:0,playerName:this.playerName};
     }
 
     saveStats() {
-        localStorage.setItem('wordle_stats', JSON.stringify(this.stats));
-        this.renderStats();
+        const storageKey = `wordle_stats_${this.playerName}`;
+        this.stats.playerName = this.playerName;
+        localStorage.setItem(storageKey, JSON.stringify(this.stats));
     }
 
     init() {
@@ -75,6 +85,15 @@ class WordleGame {
     bindControls() {
         document.getElementById('newGameBtn').onclick = () => this.newGame();
         document.getElementById('resetBtn').onclick = () => this.newGame();
+        const saveBtn = document.getElementById('saveWordleBtn');
+        const loadBtn = document.getElementById('loadWordleBtn');
+        const clearBtn = document.getElementById('clearWordleBtn');
+        if (saveBtn) saveBtn.onclick = () => { this.saveState(); alert('Spel opgeslagen.'); };
+        if (loadBtn) loadBtn.onclick = () => {
+            const ok = this.loadState();
+            if (ok) alert('Opgeslagen spel geladen.'); else alert('Geen opgeslagen Wordle-spel gevonden.');
+        };
+        if (clearBtn) clearBtn.onclick = () => { this.clearSavedState(); alert('Opslag verwijderd.'); };
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.handleKey('ENTER');
             else if (e.key === 'Backspace') this.handleKey('BACK');
@@ -87,7 +106,7 @@ class WordleGame {
         this.grid = Array.from({length:this.ROWS}, () => Array(this.COLS).fill(''));
         this.row = 0; this.col = 0; this.solved = false; this.gameOver = false;
         document.getElementById('gameStatus').style.display = 'none';
-        this.updateBoard(); this.renderKeyboard(); this.renderStats();
+        this.updateBoard(); this.renderKeyboard();
     }
 
     handleKey(key) {
@@ -102,6 +121,7 @@ class WordleGame {
             this.grid[this.row][this.col] = ch;
             this.col++;
             this.updateBoard();
+            try { this.saveState(); } catch (e) {}
         }
     }
 
@@ -110,6 +130,7 @@ class WordleGame {
             this.col--;
             this.grid[this.row][this.col] = '';
             this.updateBoard();
+            try { this.saveState(); } catch (e) {}
         }
     }
 
@@ -125,6 +146,14 @@ class WordleGame {
         if (guess === this.target) {
             this.solved = true; this.gameOver = true; this.stats.played++; this.stats.win++; this.saveStats();
             this.showStatus('Gefeliciteerd! Je hebt het woord geraden.');
+            try { this.saveState(); } catch (e) {}
+            try {
+                if (typeof awardAchievement === 'function') {
+                    awardAchievement(this.playerName, 'wordle_first_win');
+                    const tries = this.row + 1;
+                    if (tries <= 3) awardAchievement(this.playerName, 'wordle_speedster', {tries});
+                }
+            } catch (e) {}
             return;
         }
         this.row++;
@@ -132,17 +161,57 @@ class WordleGame {
         if (this.row >= this.ROWS) {
             this.gameOver = true; this.stats.played++; this.saveStats();
             this.showStatus('Helaas, je hebt het niet geraden. Woord: ' + this.target);
+            try { this.saveState(); } catch (e) {}
         }
+    }
+
+    // Save/load game state
+    saveState() {
+        const key = `wordle_saved_${this.playerName}`;
+        const state = {
+            target: this.target,
+            grid: this.grid,
+            row: this.row,
+            col: this.col,
+            solved: this.solved,
+            gameOver: this.gameOver,
+            stats: this.stats
+        };
+        localStorage.setItem(key, JSON.stringify(state));
+    }
+
+    loadState() {
+        const key = `wordle_saved_${this.playerName}`;
+        const raw = localStorage.getItem(key);
+        if (!raw) return false;
+        try {
+            const s = JSON.parse(raw);
+            this.target = s.target;
+            this.grid = s.grid;
+            this.row = s.row;
+            this.col = s.col;
+            this.solved = s.solved;
+            this.gameOver = s.gameOver;
+            this.stats = s.stats || this.stats;
+            this.updateBoard(); this.renderKeyboard();
+            if (this.gameOver) this.showStatus(this.solved ? 'Geslaagd (geladen)' : `Afgesloten. Woord: ${this.target}`);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    clearSavedState() {
+        const key = `wordle_saved_${this.playerName}`;
+        localStorage.removeItem(key);
     }
 
     checkGuess(guess) {
         const res = Array(this.COLS).fill('absent');
         const targetArr = this.target.split('');
-        // First pass: correct
         for (let i=0;i<this.COLS;i++){
             if (guess[i] === targetArr[i]) { res[i]='correct'; targetArr[i]=null; }
         }
-        // Second pass: present
         for (let i=0;i<this.COLS;i++){
             if (res[i]==='correct') continue;
             const idx = targetArr.indexOf(guess[i]);
@@ -177,7 +246,6 @@ class WordleGame {
         const kb = document.getElementById('keyboard');
         const keys = kb.querySelectorAll('.kb-key');
         const colorMap = {};
-        // derive best known coloring from past rows
         for (let r=0;r<this.ROWS;r++){
             const rowEl = document.getElementById('gameBoard').children[r];
             if (!rowEl) break;
@@ -206,11 +274,24 @@ class WordleGame {
         const t = document.getElementById('statusText');
         s.style.display = 'block'; t.textContent = msg;
     }
+}
 
-    renderStats(){
-        const el = document.getElementById('statsText');
-        el.textContent = `Gespeeld: ${this.stats.played} — Gewonnen: ${this.stats.win}`;
+function getWordleLeaderboard() {
+    const leaderboard = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('wordle_stats_')) {
+            const data = JSON.parse(localStorage.getItem(key));
+            leaderboard.push({
+                playerName: data.playerName,
+                played: data.played,
+                wins: data.win,
+                winRate: data.played > 0 ? Math.round((data.win / data.played) * 100) : 0
+            });
+        }
     }
+    leaderboard.sort((a, b) => b.wins - a.wins || b.winRate - a.winRate);
+    return leaderboard;
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
