@@ -1,3 +1,34 @@
+<?php
+session_start();
+require 'db.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: inloggen.php');
+    exit;
+}
+
+$user = null;
+$stats = null;
+$error = '';
+
+try {
+    $stmt = $pdo->prepare('SELECT username, email, created_at FROM users WHERE id = ?');
+    $stmt->bind_param('i', $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    if ($user) {
+        $statsStmt = $pdo->prepare('SELECT connect4_rank, connect4_score, wordle_rank, wordle_score FROM leaderboard WHERE player_name = ?');
+        $statsStmt->bind_param('s', $user['username']);
+        $statsStmt->execute();
+        $stats = $statsStmt->get_result()->fetch_assoc();
+    }
+} catch (Exception $e) {
+    $error = $e->getMessage();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -15,128 +46,130 @@
 
     <main class="profile-page">
         <section class="profile-container">
-            <!-- Profiel Header -->
-            <header class="profile-header">
-                <section class="profile-avatar">
-                    <span class="avatar-initial">F</span>
-                </section>
-                <section class="profile-info-header">
-                    <h1>Welkom terug!</h1>
-                    <p class="username">@freek</p>
-                </section>
-            </header>
+            <?php if ($error): ?>
+                <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+            <?php endif; ?>
+            <?php if (!$user): ?>
+                <p>Gebruiker niet gevonden.</p>
+            <?php else: ?>
+                <header class="profile-header">
+                    <section class="profile-avatar">
+                        <span class="avatar-initial"><?php echo htmlspecialchars(strtoupper(substr($user['username'], 0, 1))); ?></span>
+                    </section>
+                    <section class="profile-info-header">
+                        <h1>Welkom terug!</h1>
+                        <p class="username">@<?php echo htmlspecialchars($user['username']); ?></p>
+                    </section>
+                </header>
 
-            <!-- Profiel Tabs -->
-            <nav class="profile-tabs">
-                <button class="tab-button active" data-tab="info">Profielgegevens</button>
-                <button class="tab-button" data-tab="stats">Statistieken</button>
-                <button class="tab-button" data-tab="settings">Instellingen</button>
-            </nav>
+                <nav class="profile-tabs">
+                    <button class="tab-button active" data-tab="info">Profielgegevens</button>
+                    <button class="tab-button" data-tab="stats">Statistieken</button>
+                    <button class="tab-button" data-tab="settings">Instellingen</button>
+                </nav>
 
-            <!-- Profielgegevens Tab -->
-            <article id="info" class="tab-content active">
-                <form class="profile-form">
-                    <section class="form-group">
-                        <label for="username">Gebruikersnaam</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            value="freek"
-                            disabled>
+                <article id="info" class="tab-content active">
+                    <form class="profile-form">
+                        <section class="form-group">
+                            <label for="username">Gebruikersnaam</label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value="<?php echo htmlspecialchars($user['username']); ?>"
+                                disabled>
+                        </section>
+
+                        <section class="form-group">
+                            <label for="email">E-mail</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="<?php echo htmlspecialchars($user['email']); ?>"
+                                placeholder="Voer je e-mail in">
+                        </section>
+
+                        <section class="form-group">
+                            <label for="display-name">Weergavenaam</label>
+                            <input
+                                type="text"
+                                id="display-name"
+                                name="display_name"
+                                value="<?php echo htmlspecialchars($user['username']); ?>"
+                                placeholder="Voer je weergavenaam in">
+                        </section>
+
+                        <section class="form-group">
+                            <label for="bio">Biografie</label>
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                placeholder="Vertel iets over jezelf..."
+                                rows="4"></textarea>
+                        </section>
+
+                        <button type="button" class="btn btn--primary">Opslaan</button>
+                    </form>
+                </article>
+
+                <article id="stats" class="tab-content">
+                    <section class="stats-grid">
+                        <section class="stat-card">
+                            <p class="stat-value"><?php echo $stats ? htmlspecialchars($stats['connect4_score']) : '0'; ?></p>
+                            <p class="stat-label">Vier op een Rij Score</p>
+                        </section>
+                        <section class="stat-card">
+                            <p class="stat-value"><?php echo $stats ? htmlspecialchars($stats['wordle_score']) : '0'; ?></p>
+                            <p class="stat-label">Wordle Score</p>
+                        </section>
+                        <section class="stat-card">
+                            <p class="stat-value"><?php echo $stats ? htmlspecialchars($stats['connect4_rank']) : '-'; ?></p>
+                            <p class="stat-label">Vier op een Rij Rank</p>
+                        </section>
+                        <section class="stat-card">
+                            <p class="stat-value"><?php echo $stats ? htmlspecialchars($stats['wordle_rank']) : '-'; ?></p>
+                            <p class="stat-label">Wordle Rank</p>
+                        </section>
                     </section>
 
-                    <section class="form-group">
-                        <label for="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="freek@example.com"
-                            placeholder="Voer je e-mail in">
-                    </section>
+                    <h2 style="margin-top:30px;text-align:center;color:var(--text-primary);">Badges</h2>
+                    <div class="badges-container" id="profileBadges"></div>
+                </article>
 
-                    <section class="form-group">
-                        <label for="display-name">Weergavenaam</label>
-                        <input
-                            type="text"
-                            id="display-name"
-                            name="display_name"
-                            value="Freek"
-                            placeholder="Voer je weergavenaam in">
-                    </section>
+                <article id="settings" class="tab-content">
+                    <form class="settings-form">
+                        <section class="settings-group">
+                            <label>
+                                <input type="checkbox" name="notifications" checked>
+                                Push notificaties inschakelen
+                            </label>
+                        </section>
 
-                    <section class="form-group">
-                        <label for="bio">Biografie</label>
-                        <textarea
-                            id="bio"
-                            name="bio"
-                            placeholder="Vertel iets over jezelf..."
-                            rows="4">Gamer en retro speller!</textarea>
-                    </section>
+                        <section class="settings-group">
+                            <label>
+                                <input type="checkbox" name="dark-mode" checked>
+                                Donkere modus
+                            </label>
+                        </section>
 
-                    <button type="submit" class="btn btn--primary">Opslaan</button>
-                </form>
-            </article>
+                        <section class="settings-group">
+                            <label>
+                                <input type="checkbox" name="privacy">
+                                Profiel openbaar maken
+                            </label>
+                        </section>
 
-            <!-- Statistieken Tab -->
-            <article id="stats" class="tab-content">
-                <section class="stats-grid">
-                    <section class="stat-card">
-                        <p class="stat-value">42</p>
-                        <p class="stat-label">Spellen Gespeeld</p>
-                    </section>
-                    <section class="stat-card">
-                        <p class="stat-value">8750</p>
-                        <p class="stat-label">Totale Punten</p>
-                    </section>
-                    <section class="stat-card">
-                        <p class="stat-value">12</p>
-                        <p class="stat-label">Plaats in Ranking</p>
-                    </section>
-                    <section class="stat-card">
-                        <p class="stat-value">94</p>
-                        <p class="stat-label">Voltooide Achievements</p>
-                    </section>
-                </section>
+                        <button type="submit" class="btn btn--primary">Instellingen Opslaan</button>
+                    </form>
 
-                <h2 style="margin-top:30px;text-align:center;color:var(--text-primary);">Badges</h2>
-                <div class="badges-container" id="profileBadges"></div>
-            </article>
-
-            <!-- Instellingen Tab -->
-            <article id="settings" class="tab-content">
-                <form class="settings-form">
-                    <section class="settings-group">
-                        <label>
-                            <input type="checkbox" name="notifications" checked>
-                            Push notificaties inschakelen
-                        </label>
+                    <section class="danger-zone">
+                        <h3>Gevaarlijke Zone</h3>
+                        <button type="button" class="btn btn--danger">Account Verwijderen</button>
+                        <button type="button" class="btn btn--secondary">Wachtwoord Wijzigen</button>
                     </section>
-
-                    <section class="settings-group">
-                        <label>
-                            <input type="checkbox" name="dark-mode" checked>
-                            Donkere modus
-                        </label>
-                    </section>
-
-                    <section class="settings-group">
-                        <label>
-                            <input type="checkbox" name="privacy">
-                            Profiel openbaar maken
-                        </label>
-                    </section>
-
-                    <button type="submit" class="btn btn--primary">Instellingen Opslaan</button>
-                </form>
-
-                <section class="danger-zone">
-                    <h3>Gevaarlijke Zone</h3>
-                    <button type="button" class="btn btn--danger">Account Verwijderen</button>
-                    <button type="button" class="btn btn--secondary">Wachtwoord Wijzigen</button>
-                </section>
-            </article>
+                </article>
+            <?php endif; ?>
         </section>
 
     </main>
@@ -147,7 +180,7 @@
     <script src="script/profile.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', ()=>{
-            try { 
+            try {
                 const name = getOrAskPlayerName('profile');
                 renderBadges('#profileBadges', name);
             } catch(e) {}

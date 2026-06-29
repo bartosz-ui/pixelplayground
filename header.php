@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$loggedIn = isset($_SESSION['username']);
+?>
 <header class="site-header">
     <div>
         <a href="index.php" class="brand-link">
@@ -22,7 +28,12 @@
     </nav>
 
     <div class="header__actions">
-        <a href="register.php" class="btn btn--primary">registreren</a>
-        <a href="profile.php" class="profile-badge" aria-label="Profiel">F</a>
+        <?php if ($loggedIn): ?>
+            <a href="profile.php" class="profile-badge" aria-label="Profiel"><?php echo htmlspecialchars(strtoupper(substr($_SESSION['username'], 0, 1))); ?></a>
+            <a href="logout.php" class="btn btn--secondary">uitloggen</a>
+        <?php else: ?>
+            <a href="register.php" class="btn btn--primary">registreren</a>
+            <a href="inloggen.php" class="profile-badge" aria-label="Profiel">F</a>
+        <?php endif; ?>
     </div>
 </header>
