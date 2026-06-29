@@ -1,4 +1,5 @@
 <?php
+require 'session.php';
 require 'db.php';
 
 $rows = [];
@@ -38,7 +39,7 @@ try {
         <h2>Leaderboard</h2>
 
         <?php if ($error): ?>
-            <div class="error-message">Fout bij laden van leaderboard: <?php echo htmlspecialchars($error); ?></div>
+            <section class="error-message">Fout bij laden van leaderboard: <?php echo htmlspecialchars($error); ?></section>
         <?php elseif (empty($rows)): ?>
             <p>Er zijn nog geen scores beschikbaar. Voeg data toe in phpMyAdmin of gebruik een SQL-query.</p>
         <?php else: ?>

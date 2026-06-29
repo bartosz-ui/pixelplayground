@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'session.php';
 require 'db.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -134,7 +134,7 @@ try {
                     </section>
 
                     <h2 style="margin-top:30px;text-align:center;color:var(--text-primary);">Badges</h2>
-                    <div class="badges-container" id="profileBadges"></div>
+                    <section class="badges-container" id="profileBadges"></section>
                 </article>
 
                 <article id="settings" class="tab-content">

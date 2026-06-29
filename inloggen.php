@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'session.php';
 require 'db.php';
 
 $error = '';

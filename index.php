@@ -1,3 +1,4 @@
+<?php require 'session.php'; ?>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -25,57 +26,57 @@
             <p class="hero__subtitle">
                 Duik in de wereld van retro gaming en herbeleef de klassiekers!
             </p>
+                <section class="updates-grid">
+                    <article class="update-card">
+                        <h3>
+                            Online Leaderboards
+                        </h3>
+                        <p>
+                            Vergelijk jouw scores met andere spelers
+                            en klim naar de top van de ranglijst.
+                        </p>
+                    </article>
 
-            <a href="games.php" class="btn btn--primary">
-                Ontdek onze games
-            </a>
+                    <article class="update-card">
+                        <h3>
+                            Nieuwe Retro Games
+                        </h3>
+                        <p>
+                            Binnenkort voegen we meer klassieke arcade games toe.
+                        </p>
+                    </article>
 
-        </section>
-
-        <section class="about-section">
-
-            <h2 class="section-title">
-                Over Pixel Playground
+                    <article class="update-card">
+                        <h3>
+                            Profielen & Achievements
+                        </h3>
+                        <p>
+                            Verdien achievements en houd je statistieken bij.
+                        </p>
+                    </article>
+                </section>
             </h2>
 
-            <p class="about-text">
-                Pixel Playground is dé plek voor liefhebbers van klassieke games,
-                retro uitdagingen en competitieve highscores.
-            </p>
-
-            <p class="about-text">
-                Speel direct in je browser, daag vrienden uit en ontdek
-                nieuwe klassiekers in een moderne arcade stijl.
-            </p>
-
-        </section>
-
-        <section class="featured-games">
-
-            <h2 class="section-title">
-                Uitgelichte Games
-            </h2>
-
-            <div class="games-grid">
-
-
+            <section class="games-grid">
 
                 <article class="game-card">
+                    <a href="connect4.php" style="text-decoration: none; color: inherit;">
+                        <img src="images\connect.jpg" alt="Connect 4">
 
-                    <img src="images\boterkaasei.png" alt="Boter kaas en eieren">
+                        <section class="game-card__content">
+                            <h3>Vier op een rij</h3>
 
-                    <div class="game-card__content">
+                            <p>
+                                Zet vier van dezelfde kleur op een rij en win!
+                            </p>
+                        </section>
+                    </a>
+                </article>
 
-                        <h3>Boter, Kaas en Eieren</h3>
-
-                        <p>
-                            De klassieke tic-tac-toe ervaring komt binnenkort naar Pixel Playground.
-                        </p>
-
-                        <span class="coming-soon">
-                            Coming Soon
-                        </span>
-
+                <article class="game-card">
+                    <img src="images\wordle.png" alt="Wordle">
+                    <a href="wordle.php" style="text-decoration: none; color: inherit;">
+                        <section class="game-card__content"> 
                     </div>
 
                 </article>
