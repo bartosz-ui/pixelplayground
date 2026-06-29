@@ -28,6 +28,7 @@ try {
 
     <link rel="stylesheet" href="style/style.css?v=2">
     <script src="script/script.js" defer></script>
+    <script src="script/leaderbord.js" defer></script>
 </head>
 
 <body>
@@ -37,29 +38,38 @@ try {
     <article class="leaderboard">
 
         <h2>Leaderboard</h2>
+        <section class="error-message" style="display:<?php echo $error ? 'block' : 'none'; ?>;">
+            <?php if ($error) echo 'Fout bij laden van leaderboard: ' . htmlspecialchars($error); ?>
+        </section>
 
-        <?php if ($error): ?>
-            <section class="error-message">Fout bij laden van leaderboard: <?php echo htmlspecialchars($error); ?></section>
-        <?php elseif (empty($rows)): ?>
+        <?php if (empty($rows) && !$error): ?>
             <p>Er zijn nog geen scores beschikbaar. Voeg data toe in phpMyAdmin of gebruik een SQL-query.</p>
         <?php else: ?>
-            <table>
-                <tr>
-                    <th>Speler</th>
-                    <th>Vier op een Rij Rank</th>
-                    <th>Vier op een Rij Score</th>
-                    <th>Wordle Rank</th>
-                    <th>Wordle Score</th>
-                </tr>
-                <?php foreach ($rows as $row): ?>
+            <div class="leaderboard-actions">
+                <button id="refreshLeaderboardBtn" class="btn btn--secondary" type="button">Ververs leaderboard</button>
+                <span id="leaderboardStatus" class="leaderboard-status">Laatste update: nu</span>
+            </div>
+            <table id="leaderboard-table">
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['player_name']); ?></td>
-                        <td><?php echo htmlspecialchars($row['connect4_rank']); ?></td>
-                        <td><?php echo htmlspecialchars($row['connect4_score']); ?></td>
-                        <td><?php echo htmlspecialchars($row['wordle_rank']); ?></td>
-                        <td><?php echo htmlspecialchars($row['wordle_score']); ?></td>
+                        <th>Speler</th>
+                        <th>Vier op een Rij Rank</th>
+                        <th>Vier op een Rij Score</th>
+                        <th>Wordle Rank</th>
+                        <th>Wordle Score</th>
                     </tr>
-                <?php endforeach; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($rows as $row): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['player_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['connect4_rank']); ?></td>
+                            <td><?php echo htmlspecialchars($row['connect4_score']); ?></td>
+                            <td><?php echo htmlspecialchars($row['wordle_rank']); ?></td>
+                            <td><?php echo htmlspecialchars($row['wordle_score']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
         <?php endif; ?>
     </article>
